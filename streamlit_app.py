@@ -74,11 +74,10 @@ CONTENT_BY_LABEL: dict[str, dict[str, list[str]]] = {
     #   "images": ["https://.../jjampong1.jpg", "https://.../jjampong2.jpg"],
     #   "videos": ["https://youtu.be/XXXXXXXXXXX"]
     # },
-    labels[0] : {"texts" : ["중국식 냉면은 맛있어"], "images" : []},
-    labels[1] : {"texts" : ["짜장면은 맛있어"], "images" : []},
-    labels[2] : {"texts" : ["짬뽕은 맛있어"], "images" : []},
-    labels[3] : {"texts" : ["탕수육은 맛있어"], "images" : []
-}
+    label[0] "texts" : ["짬뽕은 맛있어] "images" : []},
+    label[1] "texts" : ["짜장면은 맛있어] "images" : []},
+    label[2] "texts" : ["중국식냉면은 맛있어] "images" : []},
+    label[3] "texts" : ["탕수육은 맛있어] "images" : []},
 
 # ======================
 # 유틸
@@ -106,7 +105,11 @@ def pick_top3(lst):
 
 def get_content_for_label(label: str):
     """라벨명으로 콘텐츠 반환 (texts, images, videos). 없으면 빈 리스트."""
-  p3(cfg.get("videos", [])),
+    cfg = CONTENT_BY_LABEL.get(label, {})
+    return (
+        pick_top3(cfg.get("texts", [])),
+        pick_top3(cfg.get("images", [])),
+        pick_top3(cfg.get("videos", [])),
     )
 
 # ======================
